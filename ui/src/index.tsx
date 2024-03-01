@@ -182,6 +182,7 @@ const parseAnalysisRunStatus = (status: string): string => {
 const parseReplicaSets = (tree: any, rollout: any): RolloutReplicaSetInfo[] => {
     const allReplicaSets = [];
     const allPods = [];
+    console.log(util.inspect(tree, {showHidden: false, depth: null, colors: true}))
     for (const node of tree.nodes) {
         if (node.kind === 'ReplicaSet') {
             allReplicaSets.push(node);
