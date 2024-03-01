@@ -192,6 +192,7 @@ const parseReplicaSets = (tree: any, rollout: any): RolloutReplicaSetInfo[] => {
     const ownedReplicaSets: {[key: string]: any} = {};
 
     for (const rs of allReplicaSets) {
+        console.log(`I'm the rs: ${rs}`);
         for (const parentRef of rs.parentRefs) {
             if (parentRef?.kind === 'Rollout' && parentRef?.name === rollout?.metadata?.name) {
                 const pods = [];
@@ -219,6 +220,7 @@ const parseReplicaSets = (tree: any, rollout: any): RolloutReplicaSetInfo[] => {
                         uid: rs.uid,
                         namespace: rs.namespace
                     },
+                    images: rs.images,
                     status: rs?.health.status,
                     revision: parseRevision(rs),
                     canary: true
