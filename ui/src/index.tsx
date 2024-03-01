@@ -3,6 +3,7 @@ import {RolloutWidget} from 'argo-rollouts/ui/src/app/components/rollout/rollout
 import {ObjectMeta, TypeMeta} from 'argo-rollouts/ui/src/models/kubernetes';
 import {RolloutAnalysisRunInfo, RolloutReplicaSetInfo, RolloutRolloutInfo} from 'argo-rollouts/ui/src/models/rollout/generated';
 import { default as axios } from 'axios';
+import * as util from 'util';
 
 export type State = TypeMeta & {metadata: ObjectMeta} & {
     status: any;
@@ -192,7 +193,7 @@ const parseReplicaSets = (tree: any, rollout: any): RolloutReplicaSetInfo[] => {
     const ownedReplicaSets: {[key: string]: any} = {};
 
     for (const rs of allReplicaSets) {
-        console.log(`I'm the rs: ${rs}`);
+        console.log(util.inspect(rs, {showHidden: false, depth: null, colors: true}))
         for (const parentRef of rs.parentRefs) {
             if (parentRef?.kind === 'Rollout' && parentRef?.name === rollout?.metadata?.name) {
                 const pods = [];
